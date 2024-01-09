@@ -390,6 +390,13 @@
       # lst as a list: ['a', 'a', 'b', 'b', 'b', 'c', 'd', 'd', 'e', 'f']
       # lst as a set: {'f', 'c', 'b', 'e', 'a', 'd'}
 
+- Sum a `list`
+  - ```python
+      lst = [1, 2, 3, 4, 5]
+      print(sum(lst))
+
+      # 15
+
 - Aggregate a `list` by element value and their counts into a `dict` (dictionary / hash table) of the results.
     - ```python
       lst = ['a', 'a', 'b', 'b', 'b', 'c', 'd', 'd', 'e', 'f']
@@ -473,6 +480,14 @@
           print(f"i: {i}, ", end='')
 
       # i: 1, i: 2, i: 3, i: 4, i: 5,
+
+- Basic while loop
+  - ```python
+      lst = [1, 2, 3, 4, 5]
+      while len(lst) > 0:
+          print(f"{lst.pop()}, ", end='')
+
+      # 5, 4, 3, 2, 1,
 
 - Break out of (short ciruit) a loop
   - ```python
