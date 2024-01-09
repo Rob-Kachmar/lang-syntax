@@ -227,42 +227,42 @@
       # 	text to keep
 
 * String slicing syntax [[start:stop:step]](https://docs.python.org/3/library/functions.html#slice)
-* Get only the first two characters. ```start``` is blank for starting at the beginning, and ```stop``` is 2 to stop after 2 characters.
+* Get only the first two characters. `start` is blank for starting at the beginning, and `stop` is 2 to stop after 2 characters.
   * ```python
       s = "abcdef"[:2]
       print(s)
 
       # ab
 
-* Get only the last two characters. ```start``` is -2 for starting at the last 2 characters, and ```stop``` is blank for continuing on for the remainder of the string.
+* Get only the last two characters. `start` is -2 for starting at the last 2 characters, and `stop` is blank for continuing on for the remainder of the string.
   * ```python
       s = "abcdef"[-2:]
       print(s)
 
       # ef
 
-* Skip the first two characters.  ```start``` is 2 for starting after the first 2 characters, and ```stop``` is blank for continuing on for the remainder of the string.
+* Skip the first two characters.  `start` is 2 for starting after the first 2 characters, and `stop` is blank for continuing on for the remainder of the string.
   * ```python
       s = "abcdef"[2:]
       print(s)
 
       # cdef
 
-* Skip the last two characters.  ```start``` is blank for starting at the beginning, and ```stop``` is -2 for stopping before the last 2 characters.
+* Skip the last two characters.  `start` is blank for starting at the beginning, and `stop` is -2 for stopping before the last 2 characters.
   * ```python
       s = "abcdef"[:-2]
       print(s)
 
       # abcd
 
-* Skip the first and last two characters. ```start``` is 2 for starting after the first 2 characters, and ```stop``` is -2 for stopping before the last 2 characters.
+* Skip the first and last two characters. `start` is 2 for starting after the first 2 characters, and `stop` is -2 for stopping before the last 2 characters.
   * ```python
       s = "abcdef"[2:-2]
       print(s)
 
       # cd
 
-* Reverse a string. ```start``` and ```stop``` are blank so the whole string is captured, and ```step``` is -1 so it is traversed from the end to the beginning.
+* Reverse a string. `start` and `stop` are blank so the whole string is captured, and `step` is -1 so it is traversed from the end to the beginning.
   * ```python
       s = "abcdef"[::-1]
       print(s)
@@ -323,7 +323,7 @@
 
 
 ## Lists, Sets, and Dictionaries
-* Get the length of a ```list```
+* Get the length of a `list`
   * ```python
       lst = [1, 2, 3, 4, 5]
       print(f"len(lst): {len(lst)}")
@@ -340,7 +340,7 @@
 
       # [1, 2]
 
-* Adding (appending) and removing (deleting) from a ```list```
+* Adding (appending) and removing (deleting) from a `list`
   * NOTE: After removing an element from a list, all the indexes change from that element onward!
   * ```python
       lst = [1, 2, 3, 4, 5]
@@ -360,7 +360,7 @@
       # Pop out / remove the 3rd element of a list: [2, 3, 5, 6]
       # Pop out / remove the last element of a list: [2, 3, 5]
 
-* Replacing (overwriting) a ```list``` element by index
+* Replacing (overwriting) a `list` element by index
   * ```python
       lst = [1, 2, 3, 4, 5]
       print(f"lst: {lst}")
@@ -380,7 +380,7 @@
       # BEFORE: [1, '', '', 2, '', 3, 4, '', ' ', '', None, 5]
       # AFTER: [1, 2, 3, 4, 5]
 
-* Turn a ```list``` into a ```set``` to remove any duplicates. However, the ```set``` has no defined ordering and will output the items in an indeterminate order every time.
+* Turn a `list` into a `set` to remove any duplicates. However, the ```set``` has no defined ordering and will output the items in an indeterminate order every time.
   * ```python
       lst = ['a', 'a', 'b', 'b', 'b', 'c', 'd', 'd', 'e', 'f']
       print(f"lst as a list: {lst}")
@@ -390,7 +390,7 @@
       # lst as a list: ['a', 'a', 'b', 'b', 'b', 'c', 'd', 'd', 'e', 'f']
       # lst as a set: {'f', 'c', 'b', 'e', 'a', 'd'}
 
-* Aggregate a ```list``` by element value and their counts into a ```dict``` (dictionary / hash table) of the results.
+* Aggregate a `list` by element value and their counts into a `dict` (dictionary / hash table) of the results.
     * ```python
       lst = ['a', 'a', 'b', 'b', 'b', 'c', 'd', 'd', 'e', 'f']
       agg_dict = dict(map(lambda k: (k, lst.count(k)), lst))
@@ -398,7 +398,7 @@
 
       # {'a': 2, 'b': 3, 'c': 1, 'd': 2, 'e': 1, 'f': 1}
 
-* Aggregate a ```list``` by element value and their counts into a ```list``` of tuples.
+* Aggregate a `list` by element value and their counts into a `list` of tuples.
     * ```python
       import itertools
       lst = ['a', 'a', 'b', 'b', 'b', 'c', 'd', 'd', 'e', 'f']
@@ -407,7 +407,7 @@
 
       # [('a', 2), ('b', 3), ('c', 1), ('d', 2), ('e', 1), ('f', 1)]
 
-* Aggregate a ```list``` by element value and their counts into an ```OrderedDict``` (ordered dictionary / hash table) of the results.
+* Aggregate a `list` by element value and their counts into an `OrderedDict` (ordered dictionary / hash table) of the results.
   * NOTE: I haven't found a faster way than this.
   * ```python
       import collections
@@ -418,7 +418,7 @@
 
       # OrderedDict([('a', 2), ('b', 3), ('c', 1), ('d', 2), ('e', 1), ('f', 1)])
 
-* Convert a ```list``` into a list of tuple pairs, where the value is the key and the original ```list``` index is the value, and have it sorted by the tuple keys.
+* Convert a `list` into a list of tuple pairs, where the value is the key and the original `list` index is the value, and have it sorted by the tuple keys.
   * ```python
       lst = [10, 2, 5, 15, 1, 35, 12]
       print(lst)
@@ -428,7 +428,7 @@
       # [10, 2, 5, 15, 1, 35, 12]
       # [(1, 4), (2, 1), (5, 2), (10, 0), (12, 6), (15, 3), (35, 5)]
 
-* Create a ```list``` of ```lists``` with list comprehension
+* Create a `list` of `lists` with list comprehension
   * ```python
       sub_lists_to_create = 7
       main_list = [[] for i in range(sub_lists_to_create)]
@@ -436,7 +436,7 @@
 
       # [[], [], [], [], [], [], []]
 
-* Create a ```list``` prefilled with None values
+* Create a `list` prefilled with None values
   * ```python
       list_elements = 7
       lst = [None] * list_elements
@@ -444,7 +444,7 @@
 
       # [None, None, None, None, None, None, None]
 
-* Adding (appending) and removing (deleting) from a ```dict``` (dictionary), is done with keys, not with indexes as you would in a ```list```.
+* Adding (appending) and removing (deleting) from a `dict` (dictionary), is done with keys, not with indexes as you would in a `list`.
   * ```python
       dct = {1: 2, 3: 4, 5: 6, "7": 8, 9: "10"}
       print(dct)
