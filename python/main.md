@@ -472,6 +472,7 @@
       # Delete key 5 from the dictionary:
       #     {1: 2, 3: 444, '7': 8, 9: '10', 2: 3}
 
+
 ## Loopping
 - Basic for loop through a list
   - ```python
@@ -531,3 +532,182 @@
           print(f"i: {i} at idx: {idx}, ", end='')
 
       # : 1 at idx: 0, i: 2 at idx: 1, i: 3 at idx: 2,
+
+
+## NumPy
+- REFERENCE: [NumPy: the absolute basics for beginners](https://numpy.org/devdocs/user/absolute_beginners.html)
+- Create NumPy arrays filled in various ways
+  - ```python
+      import numpy as np
+
+      # Filled with zeros
+      arr = np.zeros(2)
+      print(arr)
+      # [0. 0.]
+
+      # Filled with ones
+      arr = np.ones(2)
+      print(arr)
+      # [1. 1.]
+
+      # Filled with random numbers
+      arr = np.empty(2)
+      print(arr)
+      # [3.14 42.]
+
+      # Filled by a range
+      arr = np.arange(4)
+      print(arr)
+      # [0 1 2 3]
+
+      # Filled by evenly spaced intervals (first number, last number, step size)
+      arr = np.arange(2, 9, 2)
+      print(arr)
+      # [2 4 6 8]
+
+      # Filled with numbers linearly spaced
+      arr = np.linspace(0, 10, num=5)
+      print(arr)
+      # [ 0.   2.5  5.   7.5 10. ]
+
+      # Default data type is np.float64, but you can override it
+      arr = np.ones(2, dtype=np.int64)
+      print(arr)
+      # [1 1]
+
+- Identifying and Reshaping a NumPy Array
+  - ```python
+      import numpy as np
+
+      arr1 = np.arange(1, 10, 1)
+      print(arr1)
+      # [1 2 3 4 5 6 7 8 9]
+
+      # Reshaping an array
+      arr = arr1.reshape(3, 3)
+      print(arr)
+      # [[1 2 3]
+      #  [4 5 6]
+      #  [7 8 9]]
+
+      # Rotating an array
+      arr = np.rot90(arr, -1)
+      print(arr)
+      # [[7 4 1]
+      #  [8 5 2]
+      #  [9 6 3]]
+
+      # Identify how many dimensions in the array
+      print(arr.ndim)
+      # 2
+
+      # Identify the shape of the array
+      print(arr.shape)
+      # (3, 3)
+
+      # Identify the size of the array (product of the shape sides)
+      print(arr.size)
+      # 9
+
+- Sorting and Concatenating NumPy Arrays
+  - ```python
+      import numpy as np
+
+      # Sorting an array
+      lst = [2, 7, 3, 4, 1, 9, 6, 8, 5]
+      arr = np.sort(np.array(lst))
+      print(arr)
+      # [1 2 3 4 5 6 7 8 9]
+
+      # Concatenating arrays
+      arr1 = np.array([1, 2, 3, 4, 5])
+      arr2 = np.array([6, 7, 8, 9, 10])
+      arr = np.concatenate((arr1, arr2))
+      print(arr)
+      # [ 1  2  3  4  5  6  7  8  9 10]
+
+      # Concatenating multi-dimensional arrays
+      arr1 = np.array([[1, 2], [3, 4]])
+      arr2 = np.array([[5, 6]])
+      arr = np.concatenate((arr1, arr2), axis=0)
+      print(arr)
+      # [[1 2]
+      #  [3 4]
+      #  [5 6]]
+
+- Slicing a NumPy Array, like String slicing
+  - ```python
+      import numpy as np
+
+      arr = np.arange(6)
+      print(arr)
+      # [0 1 2 3 4 5]
+
+      # Get the 2nd element
+      print(arr[1])
+      # 1
+
+      # Get the first 2 elements
+      print(arr[:2])
+      # [0 1]
+
+      # Skip the 1st element and get the rest
+      print(arr[1:])
+      # [1 2 3 4 5]
+
+      # Get the last 2 elements
+      print(arr[-2:])
+      # [4 5]
+
+- Getting values from a NumPy Array
+  - ```python
+      import numpy as np
+
+      arr = (np.arange(1, 13, 1)).reshape(3, 4)
+      print(arr)
+      # [[ 1  2  3  4]
+      #  [ 5  6  7  8]
+      #  [ 9 10 11 12]]
+
+      # Get all the array values < 6
+      print(arr[arr < 6])
+      # [1 2 3 4 5]
+
+      # Get all the array values >= 5
+      print(arr[arr >= 5])
+      # [ 5  6  7  8  9 10 11 12]
+
+      # Get elements divisible by 2
+      print(arr[arr % 2 == 0])
+      # [ 2  4  6  8 10 12]
+
+      # Get elements > 2 and < 11
+      print(arr[(arr > 2) & (arr < 11)])
+      # [ 3  4  5  6  7  8  9 10]
+
+      # Get elements <= 2 or >= 11
+      print(arr[(arr <= 2) | (arr >= 11)])
+      # [ 1  2 11 12]
+
+
+## Vectorizing with NumPy
+- REFERENCE: [Replacing Loops with Vectorization](https://dev.to/chamodperera/replacing-for-loops-with-vectorization-in-python-21m6)
+- Vectorize a basic for loop
+  - ```python
+      import numpy as np
+
+      # Regular for loop, multiplying each element by 2
+      lst = [1, 2, 3, 4, 5]
+      for i in range(len(lst)):
+          lst[i] = lst[i] * 2
+      print(lst)
+
+      # [2, 4, 6, 8, 10]
+
+      # Vectorizing syntax for the same calculation without looping
+      lst = [1, 2, 3, 4, 5]
+      np_arr = np.array(lst)
+      np_arr = np_arr * 2
+      print(list(np_arr))
+
+      # [2, 4, 6, 8, 10]
