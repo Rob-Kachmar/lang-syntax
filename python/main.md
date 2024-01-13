@@ -21,6 +21,13 @@
 
       # quotient = 5.0
 
+- Calling dynamic python, code running code
+  - ```python
+      print(eval('1+2'))
+      # 3
+      print(eval('sum([1, 2, 3, 4])'))
+      # 10
+
 - Working with True, False, and None (Null)
   - ```python
       result = True
@@ -68,6 +75,13 @@
 
       # [1]
       # ['1']
+
+- Cast using repr() over str() with decimal numbers in previous Python versions, but seems to be fine in Python 3
+  - ```python
+      print(str(2.0/11.0))
+      # 0.18181818181818182
+      print(repr(2.0/11.0))
+      # 0.18181818181818182
 
 ## Operators
 - Shortcut operators +=, -=, **=
@@ -340,6 +354,114 @@
 
       # [1, 2]
 
+- Check if an element is in a list
+  - ```python
+      lst = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      print(8 in lst)
+      # True
+      print(42 in lst)
+      # False
+
+- Getting / Filtering values from a list
+  - ```python
+      lst = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+      # Filtered with List Comprehension
+      lst_filtered = [i for i in lst if 5 < i < 8]
+      print(lst_filtered)
+      # [6, 7]
+
+      # Filtered with Lambda where 'i' is the list item
+      lst_filtered = list(filter(lambda i: (5 < i < 8), lst))
+      print(lst_filtered)
+      # [6, 7]
+
+- Slicing a list
+  - ```python
+      a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      print(a)
+      # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+      print()
+      print(a[::1])
+      # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      print(a[1::1])
+      # [2, 3, 4, 5, 6, 7, 8, 9, 10]
+      print(a[::-1])
+      # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+      print(a[-1::-1])
+      # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+      print(a[-2::-1])
+      # [9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+      print()
+      print(a[::2])
+      # [1, 3, 5, 7, 9]
+      print(a[1::2])
+      # [2, 4, 6, 8, 10]
+      print(a[::-2])
+      # [10, 8, 6, 4, 2]
+      print(a[-1::-2])
+      # [10, 8, 6, 4, 2]
+      print(a[-2::-2])
+      # [9, 7, 5, 3, 1]
+
+      print()
+      print(a[::3])
+      # [1, 4, 7, 10]
+      print(a[1::3])
+      # [2, 5, 8]
+      print(a[::-3])
+      # [10, 7, 4, 1]
+      print(a[-1::-3])
+      # [10, 7, 4, 1]
+      print(a[-2::-3])
+      # [9, 6, 3]
+
+- Sorting a list
+  - ```python
+      lst = [1, 3, 4, 2, 8, 9, 7, 6, 5]
+      print(lst)
+      # [1, 3, 4, 2, 8, 9, 7, 6, 5]
+
+      # This returns a new sorted list. It doesn't sort the original list
+      print()
+      print(sorted(lst))
+      # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      print(lst)
+      # [1, 3, 4, 2, 8, 9, 7, 6, 5]
+      print(sorted(lst, reverse=True))
+      # [9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+      # This actually sorts the original list.
+      lst.sort()
+      print()
+      print(lst)
+      # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      lst.sort(reverse=True)
+      print(lst)
+      # [9, 8, 7, 6, 5, 4, 3, 2, 1]
+
+- Copying vs Referencing a List
+  - ```python
+      original = [1, 2, 3, 4, 5]
+      view_reference = original
+      actual_copy = original.copy()
+      print("original BEFORE update\n\t", original)
+      original[2] = 42
+      print("original AFTER update\n\t", original)
+      print("view_reference\n\t", view_reference)
+      print("actual_copy\n\t", actual_copy)
+
+      # original BEFORE update
+      #   [1, 2, 3, 4, 5]
+      # original AFTER update
+      #   [1, 2, 42, 4, 5]
+      # view_reference
+      #   [1, 2, 42, 4, 5]
+      # actual_copy
+      #   [1, 2, 3, 4, 5]
+
 - Adding (appending) and removing (deleting) from a `list`
   - NOTE: After removing an element from a list, all the indexes change from that element onward!
   - ```python
@@ -359,6 +481,30 @@
       # Delete the first element of a list: [2, 3, 4, 5, 6]
       # Pop out / remove the 3rd element of a list: [2, 3, 5, 6]
       # Pop out / remove the last element of a list: [2, 3, 5]
+
+- Inserting between elements in a list
+  - ```python
+      b = 2
+      a = [0, 1, 3]
+      a[2:2] = [b]
+      print(a)
+      # [0, 1, 2, 3]
+
+- Swapping elements in a list
+  - ```python
+      a = [1, 2, 3, 4]
+      print(a)
+      # [1, 2, 3, 4]
+
+      # Swap values 3 and 2
+      a[1], a[2] = a[2], a[1]
+      print(a)
+      # [1, 3, 2, 4]
+
+      # Swap back values 3 and 2
+      a[2], a[1] = a[1], a[2]
+      print(a)
+      # [1, 2, 3, 4]
 
 - Replacing (overwriting) a `list` element by index
   - ```python
@@ -425,7 +571,7 @@
 
       # OrderedDict([('a', 2), ('b', 3), ('c', 1), ('d', 2), ('e', 1), ('f', 1)])
 
-- Convert a `list` into a list of tuple pairs, where the value is the key and the original `list` index is the value, and have it sorted by the tuple keys.
+- Convert a `list` into a list of tuple pairs, where the value is the key and the original `list` index is the value, and have it sorted by the tuple keys (original values).
   - ```python
       lst = [10, 2, 5, 15, 1, 35, 12]
       print(lst)
@@ -575,6 +721,18 @@
       print(arr)
       # [1 1]
 
+- Deleting from a NumPyArray
+  - NOTE: numpy.delete() returns a new array
+  - ```python
+      import numpy as np
+
+      arr = np.arange(1, 10, 1)
+      print(arr)
+      # [1 2 3 4 5 6 7 8 9]
+      indexes_to_remove = [1, 3, 6]  # Numbers: 2, 4, 7
+      arr2 = np.delete(arr, indexes_to_remove)
+      print(arr2)
+
 - Identifying and Reshaping a NumPy Array
   - ```python
       import numpy as np
@@ -659,7 +817,7 @@
       print(arr[-2:])
       # [4 5]
 
-- Getting values from a NumPy Array
+- Getting / Filtering Values from a NumPy Array
   - ```python
       import numpy as np
 
@@ -689,6 +847,339 @@
       print(arr[(arr <= 2) | (arr >= 11)])
       # [ 1  2 11 12]
 
+- Aggregating NumPy Arrays
+  - ```python
+      import numpy as np
+
+      b = np.array([[1,2,3], [4,5,6], [7,8,9]])
+      print(b)
+      # [[1 2 3]
+      #  [4 5 6]
+      #  [7 8 9]]
+
+      # Y = axis 0 for this 2-D array
+      # X = axis 1 for this 2-D array
+      #      x ------>
+      # y      0  1  2
+      # |  0 [[1  2  3]
+      # |  1  [4  5  6]
+      # V  2  [7  8  9]]
+
+      # NOTE: axis 0 represents the vertical y-axis intersection for the sub arrays, each column
+      #       across the sub arrays is evaluated with the sum function.
+      print(np.sum(b, axis=0))
+      # [12 15 18]
+      print(b.sum(axis=0))  # same thing, instead using the built in sum() of the array
+      # [12 15 18]
+
+      # NOTE: axis 1 represents the horizontal x-axis, so each sub array is evaluated individually
+      #       with the sum function.
+      print(b.sum(axis=1))
+      # [ 6 15 24]
+
+      # ERROR: since there is no axis above 1 in an array of dimension 2
+      # print(b.sum(axis=2))
+
+
+      # NOTE: For a 1-D array, the only row/list is axis 0
+      b = np.array([1,2,3,4,5,6,7,8,9])
+      print("\n", b)
+      # [1 2 3 4 5 6 7 8 9]
+
+      print(b.sum(axis=0))
+      # 45
+
+      # ERROR: since there is no axis above 0 in an array of dimension 1
+      # print(b.sum(axis=1))
+
+
+      b = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]])
+      print(b)
+      # [[ 1  2  3  4]
+      #  [ 5  6  7  8]
+      #  [ 9 10 11 12]
+      #  [13 14 15 16]]
+
+      print("\n", 'MEAN (Average)')
+      print(b.mean(axis=0))
+      # [ 7.  8.  9. 10.]
+      print(b.mean(axis=1))
+      # [ 2.5  6.5 10.5 14.5]
+
+      print("\n", 'MIN')
+      print(b.min(axis=0))
+      # [1 2 3 4]
+      print(b.min(axis=1))
+      # [ 1  5  9 13]
+
+      print("\n", 'MAX')
+      print(b.max(axis=0))
+      # [13 14 15 16]
+      print(b.max(axis=1))
+      # [ 4  8 12 16]
+
+      print("\n", 'MEDIAN (middle of the sequence)')
+      print(np.median(b, axis=0))
+      # [ 7.  8.  9. 10.]
+      print(np.median(b, axis=1))
+      # [ 2.5  6.5 10.5 14.5]
+
+- Cummulative Sum in NumPy Arrays
+  - ```python
+      import numpy as np
+
+      a = np.array([[1,2,3], [4,5,6], [7,8,9]])
+      print(a)
+      # [[1 2 3]
+      #  [4 5 6]
+      #  [7 8 9]]
+
+      # Y = axis 0 for this 2-D array
+      # X = axis 1 for this 2-D array
+      #      x ------>
+      # y      0  1  2
+      # |  0 [[1  2  3]
+      # |  1  [4  5  6]
+      # V  2  [7  8  9]]
+
+      print()  # Do a cumulative sum from left-to-right and top-to-bottom for all the arrays
+      # with no axis specified for 2-D arrays
+      b = np.cumsum(a)
+      print(b)
+      # [ 1  3  6 10 15 21 28 36 45]
+
+      print()  # Do a cumulative sum from top-to-bottom, across the arrays by column with axis=0 for 2-D arrays
+      b = np.cumsum(a, axis=0)
+      print(b)
+      # [[ 1  2  3]
+      #  [ 5  7  9]
+      #  [12 15 18]]
+
+      print()  # Do a cumulative sum from left-to-right for each array with axis=1 for 2-D arrays
+      b = np.cumsum(a, axis=1)
+      print(b)
+      # [[ 1  3  6]
+      #  [ 4  9 15]
+      #  [ 7 15 24]]
+
+- Concatenating NumPy Arrays
+  - ```python
+      import numpy as np
+
+      a = np.array([[1,1,1], [2,2,2], [3,3,3]])
+      b = np.array([[7,7,7], [8,8,8], [9,9,9]])
+
+      print(a)
+      # [[1 1 1]
+      #  [2 2 2]
+      #  [3 3 3]]
+      print(b)
+      # [[7 7 7]
+      #  [8 8 8]
+      #  [9 9 9]]
+
+      # Y = axis 0 for this 2-D array
+      # X = axis 1 for this 2-D array
+      #      x ------>
+      # y      0  1  2
+      # |  0 [[1  1  1]
+      # |  1  [2  2  2]
+      # V  2  [3  3  3]]
+
+      # Stacking the array rows with axis 0 for a 2-D array
+      print("\n", np.concatenate([a, b], axis=0))
+      # [[1 1 1]
+      #  [2 2 2]
+      #  [3 3 3]
+      #  [7 7 7]
+      #  [8 8 8]
+      #  [9 9 9]]
+
+      # Combining each row with axis 1 for a 2-D array
+      print("\n", np.concatenate([a, b], axis=1))
+      # [[1 1 1 7 7 7]
+      #  [2 2 2 8 8 8]
+      #  [3 3 3 9 9 9]]
+
+
+      # NOTE: For a 1-D array, the only row/list is axis 0
+      a = np.array([1,1,1,2,2,2,3,3,3])
+      b = np.array([7,7,7,8,8,8,9,9,9])
+
+      print("\n\n")
+      print(a)
+      # [1 1 1 2 2 2 3 3 3]
+      print(b)
+      # [7 7 7 8 8 8 9 9 9]
+
+      c = np.concatenate([a, b], axis=0)
+      print("\n", c)
+      # [1 1 1 2 2 2 3 3 3 7 7 7 8 8 8 9 9 9]
+
+- Flattening NumPy Arrays
+  - ```python
+      import numpy as np
+
+      a = np.array([[1,2,3], [4,5,6], [7,8,9]])
+      print(a)
+      # [[1 2 3]
+      #  [4 5 6]
+      #  [7 8 9]]
+
+      # Use flatten or ravel to combine all the arrays horizontally, left-to-right, with the 'C' ordering
+      print("\n")
+      print(a.flatten(order='C'))
+      print(a.ravel(order='C'))
+      # [1 2 3 4 5 6 7 8 9]
+      # [1 2 3 4 5 6 7 8 9]
+
+      # Use flatten or ravel to combine all the arrays vertically, then left-to-right with the 'F' ordering
+      print("\n")
+      print(a.flatten(order='F'))
+      print(a.ravel(order='F'))
+      # [1 4 7 2 5 8 3 6 9]
+      # [1 4 7 2 5 8 3 6 9]
+
+
+      # As you can see, flatten and ravel work similar, so why both?
+      # Well let's update one of our array values after assign and see
+      f = a.flatten(order='C')
+      r = a.ravel(order='C')
+      f[0] = 42
+      print("\n")
+      print(a)
+      # [[1 2 3]
+      #  [4 5 6]
+      #  [7 8 9]]
+      print(f)
+      # [42  2  3  4  5  6  7  8  9]
+
+
+      # Okay, that's what I would expect, nothing happens to the original 'a' array
+      # Now, let's update the ravel array 'f'
+      r[4] = 42
+      print("\n")
+      print(a)
+      # [[ 1  2  3]
+      #  [ 4 42  6]
+      #  [ 7  8  9]]
+      print(r)
+      # [ 1  2  3  4 42  6  7  8  9]
+
+      # And now you see it. The index 4 change in the ravel view is reflected
+      # for the same element in the original array.
+
+      # Assigning the ravel result to a variable creates a "view", which
+      # is just another way of viewing the same data from the original array.
+
+      # Assigning the flatten result to a variable creates a "copy", which
+      # will behave independently of the original array used to created it.
+
+- Using numpy.apply_along_axes to total columns (axes)
+  - REFERENCE: [numpy.apply_along_axes](https://numpy.org/doc/stable/reference/generated/numpy.apply_over_axes.html)
+  - ```python
+      import numpy as np
+
+      def my_func(a):
+          """Average first and last element of a 1-D array"""
+          print(a)
+          return (a[0] + a[-1]) * 0.5
+
+
+      b = np.array([[1,2,3], [4,5,6], [7,8,9]])
+      print(b)
+      # [[1 2 3]
+      #  [4 5 6]
+      #  [7 8 9]]
+
+      # Y = axis 0 for this 2-D array
+      # X = axis 1 for this 2-D array
+      #      x ------>
+      # y      0  1  2
+      # |  0 [[1  2  3]
+      # |  1  [4  5  6]
+      # V  2  [7  8  9]]
+
+      # NOTE: axis 0 represents the vertical y-axis intersection for the sub arrays, each column
+      #       across the sub arrays is evaluated with the my_func passed in.
+      c = np.apply_along_axis(my_func, 0, b)
+      # [1 4 7]
+      # [2 5 8]
+      # [3 6 9]
+      print(c)
+      # [4. 5. 6.]
+
+      # NOTE: axis 1 represents the horizontal x-axis, so each sub array is evaluated individually
+      #       with the my_func passed in.
+      c = np.apply_along_axis(my_func, 1, b)
+      # [1 2 3]
+      # [4 5 6]
+      # [7 8 9]
+      print(c)
+      # [2. 5. 8.]
+
+      # ERROR: since there is no axis above 1 in an array of dimension 2
+      # c = np.apply_along_axis(my_func, 2, b)
+
+
+      # NOTE: For a 1-D array, the only row/list is axis 0
+      b = np.array([1,2,3,4,5,6,7,8,9])
+      print("\n", b)
+      # [1 2 3 4 5 6 7 8 9]
+      c = np.apply_along_axis(my_func, 0, b)
+      # [1 2 3 4 5 6 7 8 9]
+      print(c)
+      # 5.0
+
+      # ERROR: since there is no axis above 0 in an array of dimension 1
+      # c = np.apply_along_axis(my_func, 1, b)
+
+
+      # What if we change the 1-D array into a 2-D array by surrounding it with double brackets
+      b = np.array([[1,2,3,4,5,6,7,8,9]])
+      print("\n", b)
+      # [1 2 3 4 5 6 7 8 9]
+      c = np.apply_along_axis(my_func, 0, b)
+      # [1]
+      # [2]
+      # [3]
+      # [4]
+      # [5]
+      # [6]
+      # [7]
+      # [8]
+      # [9]
+      print(c)
+      # [1. 2. 3. 4. 5. 6. 7. 8. 9.]
+
+      c = np.apply_along_axis(my_func, 1, b)
+      # [1 2 3 4 5 6 7 8 9]
+      print(c)
+      # [5.]
+
+
+      b = np.array([[8,1,7], [4,3,9], [5,2,6]])
+      print("\n", b)
+      # [[8 1 7]
+      #  [4 3 9]
+      #  [5 2 6]]
+
+      # NOTE: axis 0 represents the vertical y-axis intersection for the sub arrays, each column
+      #       across the sub arrays is evaluated with the sorted function passed in.
+      c = np.apply_along_axis(sorted, 0, b)
+      print(c)
+      # [[4 1 6]
+      #  [5 2 7]
+      #  [8 3 9]]
+
+      # NOTE: axis 1 represents the horizontal x-axis, so each sub array is evaluated individually
+      #       with the sorted function passed in.
+      c = np.apply_along_axis(sorted, 1, b)
+      print(c)
+      # [[1 7 8]
+      #  [3 4 9]
+      #  [2 5 6]]
+
 
 ## Vectorizing with NumPy
 - REFERENCE: [Replacing Loops with Vectorization](https://dev.to/chamodperera/replacing-for-loops-with-vectorization-in-python-21m6)
@@ -711,3 +1202,10 @@
       print(list(np_arr))
 
       # [2, 4, 6, 8, 10]
+
+
+# Useful Sites
+- [NumPy](https://numpy.org/doc/stable/index.html)
+  - Everything you need to know about NumPy. Although, not always the best when it comes to tutorials and examples
+- [Sharp Sight](https://www.sharpsightlabs.com/)
+  - Great, easy to understand tutorials and examples in the blog.
