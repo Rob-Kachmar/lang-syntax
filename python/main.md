@@ -383,27 +383,43 @@
       # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
       print()
-      print(a[::1])
+      print(a[::1])  # Get the full list in it's current order
       # [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-      print(a[1::1])
+      print(a[1::1])  # Get the full list in it's current order, skipping the first item
       # [2, 3, 4, 5, 6, 7, 8, 9, 10]
-      print(a[::-1])
+      print(a[1:5:1])  # Get the list in it's current order, skipping the first item, and stopping at the 5th item
+      # [2, 3, 4, 5]
+      print(a[-5::1])  # Get the list in it's current order, starting at the 5th to last position and continuing on to the end
+      # [6, 7, 8, 9, 10]
+      print(a[-6::1])  # Get the list in it's current order, starting at the 6th to last position and continuing on to the end
+      # [5, 6, 7, 8, 9, 10]
+      print(a[-7::1])  # Get the list in it's current order, starting at the 7th to last position and continuing on to the end
+      # [4, 5, 6, 7, 8, 9, 10]
+      print(a[::-1])  # Get the full list in reverse order
       # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-      print(a[-1::-1])
+      print(a[-1::-1])  # Get the full list in reverse order
       # [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
-      print(a[-2::-1])
+      print(a[-2::-1])  # Get the full list in reverse order, skipping the last list item
       # [9, 8, 7, 6, 5, 4, 3, 2, 1]
+      print(a[-2::-1])  # Get the full list in reverse order, skipping the last list item, and stopping at the 5th item
+      # [9, 8, 7, 6, 5, 4, 3, 2, 1]
+      print(a[-2:-6:-1])  # Get the full list in reverse order, skipping the last list item, and stopping at the 5th item
+      # [9, 8, 7, 6]
+      print(a[-2:-7:-1])  # Get the full list in reverse order, skipping the last list item, and stopping at the 6th item
+      # [9, 8, 7, 6, 5]
+      print(a[-2:-8:-1])  # Get the full list in reverse order, skipping the last list item, and stopping at the 7th item
+      # [9, 8, 7, 6, 5, 4]
 
       print()
-      print(a[::2])
+      print(a[::2])  # Get the list starting with the first item and jumping/stepping every 2 places for the next item
       # [1, 3, 5, 7, 9]
-      print(a[1::2])
+      print(a[1::2])  # Get the list skipping the first item and jumping/stepping every 2 places for the next item
       # [2, 4, 6, 8, 10]
-      print(a[::-2])
+      print(a[::-2])  # Get the list in reverse starting with the last item and jumping/stepping backwards every 2 places for thhe next item
       # [10, 8, 6, 4, 2]
-      print(a[-1::-2])
+      print(a[-1::-2])  # Get the list in reverse starting with the last item and jumping/stepping backwards every 2 places for thhe next item
       # [10, 8, 6, 4, 2]
-      print(a[-2::-2])
+      print(a[-2::-2])  # Get the list in reverse skipping the last item and jumping/stepping backwards every 2 places for thhe next item
       # [9, 7, 5, 3, 1]
 
       print()
@@ -581,14 +597,6 @@
       # [10, 2, 5, 15, 1, 35, 12]
       # [(1, 4), (2, 1), (5, 2), (10, 0), (12, 6), (15, 3), (35, 5)]
 
-- Create a `list` of `lists` with list comprehension
-  - ```python
-      sub_lists_to_create = 7
-      main_list = [[] for i in range(sub_lists_to_create)]
-      print(main_list)
-
-      # [[], [], [], [], [], [], []]
-
 - Create a `list` prefilled with None values
   - ```python
       list_elements = 7
@@ -596,6 +604,40 @@
       print(lst)
 
       # [None, None, None, None, None, None, None]
+
+- DO NOT create a `list` of `lists` like this, because references will be shared
+  - ```python
+      sub_lists_to_create = 4
+      main_list = [[None] * 3] * sub_lists_to_create
+      print(main_list)
+      # [[None, None, None], [None, None, None], [None, None, None], [None, None, None]]
+      main_list[0][0] = 'NEW_VALUE'
+      print(main_list)
+      # [['NEW_VALUE', None, None], ['NEW_VALUE', None, None], ['NEW_VALUE', None, None], ['NEW_VALUE', None, None]]
+
+- Create a `list` of `lists` with list comprehension where each sublist is independent, without references
+  - ```python
+      sub_lists_to_create = 4
+      main_list = [[None] * 3 for i in range(sub_lists_to_create)]
+      print(main_list)
+      # [[None, None, None], [None, None, None], [None, None, None], [None, None, None]]
+      main_list[0][0] = 'NEW_VALUE'
+      print(main_list)
+      # [['NEW_VALUE', None, None], [None, None, None], [None, None, None], [None, None, None]]
+
+- Zipping `lists` together
+  - NOTE: The final groupings/pairings are limited to the smallest list involved
+  - ```python
+      a = [1, 2, 3, 4, 5]
+      b = ['a', 'b', 'c', 'd', 'e']
+      print(list(zip(a, b)))
+      # [(1, 'a'), (2, 'b'), (3, 'c'), (4, 'd'), (5, 'e')]
+
+      a = [1, 2, 3, 4, 5]
+      b = ['a', 'b', 'c', 'd']
+      c = ['x', 'y', 'z']
+      print(list(zip(a, b, c)))
+      # [(1, 'a', 'x'), (2, 'b', 'y'), (3, 'c', 'z')]
 
 - Adding (appending) and removing (deleting) from a `dict` (dictionary), is done with keys, not with indexes as you would in a `list`.
   - ```python
@@ -679,6 +721,12 @@
 
       # : 1 at idx: 0, i: 2 at idx: 1, i: 3 at idx: 2,
 
+- for loop trough a dictionary to get it's key / value pairs
+  - ```python
+      dct = {1: 2, 3: 4, 5: 6, "7": 8, 9: "10"}
+      for k, v in dct.items():
+          print(f"Key: {k} -> Value: {v}")
+
 
 ## NumPy
 - REFERENCE: [NumPy: the absolute basics for beginners](https://numpy.org/devdocs/user/absolute_beginners.html)
@@ -690,6 +738,13 @@
       arr = np.zeros(2)
       print(arr)
       # [0. 0.]
+
+      # Filled with zeros in a 3 x 3 matrix
+      arr = np.zeros([3, 3])
+      print(arr)
+      # [[0. 0. 0.]
+      #  [0. 0. 0.]
+      #  [0. 0. 0.]]
 
       # Filled with ones
       arr = np.ones(2)
