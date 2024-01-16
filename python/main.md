@@ -83,6 +83,15 @@
       print(repr(2.0/11.0))
       # 0.18181818181818182
 
+- Square Root
+  - ```python
+      import math
+      print(math.sqrt(49))
+      # 7
+      print(math.sqrt(48))
+      # 6.928203230275509
+
+
 ## Operators
 - Shortcut operators +=, -=, **=
   - ```python
@@ -335,6 +344,23 @@
 
       # 2 equals 2
 
+
+## Switch / Match Case Statement
+- Match / Case like Switch / Case in other languages
+  - ```python
+      a = 404999
+      result = ""
+      match a:
+          case 200:
+              result = "OK"
+          case 404:
+              result = "Not Found"
+          case _:
+              result = "Congratulations, you've reached the end of the internet."
+
+      print(result)
+
+      # Congratulations, you've reached the end of the internet.
 
 ## Lists, Sets, and Dictionaries
 - Get the length of a `list`
