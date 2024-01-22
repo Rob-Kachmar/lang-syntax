@@ -91,6 +91,24 @@
       print(math.sqrt(48))
       # 6.928203230275509
 
+- Rounding
+  - ```python
+      import math
+
+      # Regular rounding rules, rounding up at the halfway mark
+      print(round(5.3, 0))  # 5.0
+      print(round(5.5, 0))  # 6.0
+      print(round(5.8, 0))  # 6.0
+
+      # Floor rounding, always rounding down, truncating the decimals to make it an int
+      print(math.floor(5.3))  # 5
+      print(math.floor(5.5))  # 5
+      print(math.floor(5.8))  # 5
+
+      # Ceiling rounding, always rounding up, truncating the decimals to make it an int
+      print(math.ceil(5.3))  # 6
+      print(math.ceil(5.5))  # 6
+      print(math.ceil(5.8))  # 6
 
 ## Operators
 - Shortcut operators +=, -=, **=
@@ -503,6 +521,26 @@
       #   [1, 2, 42, 4, 5]
       # actual_copy
       #   [1, 2, 3, 4, 5]
+
+- Copying a list without reference
+  - ```python
+      import copy
+
+      a = [1, 2, 3, 4, 5]
+      b = a[:]
+      c = a.copy()
+      d = copy.deepcopy(a)
+      print(a, " -> Original list")
+      a[2] = 42
+      print(a, "-> Original list updated")
+      print(b, " -> Copy of values with a[:] unaffected by update")
+      print(c, " -> Shallow copy with a.copy() unaffected by update")
+      print(d, " -> Deep copy with copy.deepcopy(a) unaffected by update")
+      # [1, 2, 3, 4, 5]  -> Original list
+      # [1, 2, 42, 4, 5] -> Original list updated
+      # [1, 2, 3, 4, 5]  -> Copy of values with a[:] unaffected by update
+      # [1, 2, 3, 4, 5]  -> Shallow copy with a.copy() unaffected by update
+      # [1, 2, 3, 4, 5]  -> Deep copy with copy.deepcopy(a) unaffected by update
 
 - Adding (appending) and removing (deleting) from a `list`
   - NOTE: After removing an element from a list, all the indexes change from that element onward!
@@ -1037,7 +1075,7 @@
       # |  1  [4  5  6]
       # V  2  [7  8  9]]
 
-      print()  # Do a cumulative sum from left-to-right and top-to-bottom for all the arrays
+      print()  # Do a cumulative sum from left-to-right, top-to-bottom for all the arrays
       # with no axis specified for 2-D arrays
       b = np.cumsum(a)
       print(b)
