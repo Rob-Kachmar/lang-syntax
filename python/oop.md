@@ -47,6 +47,20 @@
       t1 = Transaction()
       t1.show_detail()  # account: 12345678 | amount: 200
 
+- Inheritance
+  - ```python
+      class Transaction:
+          account = '12345678'
+          amount = 1.01
+
+      class ACH(Transaction):
+          account = '87654321'
+
+      t1 = Transaction()
+      print(t1.account, "|", t1.amount)  # 12345678 | 1.01
+      a1 = ACH()
+      print(a1.account, "|", a1.amount)  # 87654321 | 1.01
+
 - Polymorphism
   - ```python
       # Polymorphism in action when a single function knows
