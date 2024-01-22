@@ -61,6 +61,34 @@
       a1 = ACH()
       print(a1.account, "|", a1.amount)  # 87654321 | 1.01
 
+- Constructor
+  - ```python
+      class Transaction:
+          def __init__(self, account: str, amount: float):
+              # assign to internal variables
+              self.account = account
+              self.amount = amount
+
+      # t1 = Transaction()  # Fails for missing two required parameters of the constructor
+      t1 = Transaction('135791113', 1.11)
+      print(t1.account, "|", t1.amount)  # 135791113 | 1.11
+
+- Overload
+  - Python docs: [singledispatch](https://docs.python.org/3.4/library/functools.html#functools.singledispatch)
+  - ```python
+      from functools import singledispatch
+
+      @singledispatch
+      def add_something(arg):
+          return 1 + arg
+
+      @add_something.register(str)
+      def _(arg):
+          return 'S' + arg
+
+      print(add_something(9))  # 10
+      print(add_something('t r i n g'))  # St r i n g
+
 - Polymorphism
   - ```python
       # Polymorphism in action when a single function knows
