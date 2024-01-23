@@ -168,6 +168,27 @@
       t.amount = 2.02
       print("t.amount:", t.amount)  # 2.02
 
+- Passing By Value VS By Reference
+  - ```python
+      # This is passing by value and not reference because a string is immutable
+      def add_item_by_value(s, item):
+          s += item
+          print(f"s inside the function: {s}")
+
+      a_str = 'ABC'
+      print(a_str)  # ABC
+      add_item_by_value(a_str, 'D')  # s inside the function: ABCD
+      print(a_str)  # ABC
+
+      # This is passing by reference and not value because a list is mutable
+      def add_item_by_reference(lst, item):
+          lst.append(item)
+
+      a_lst = ['A', 'B', 'C']
+      print(a_lst)  # ['A', 'B', 'C']
+      add_item_by_reference(a_lst, 'D')
+      print(a_lst)  # ['A', 'B', 'C', 'D']
+
 - Polymorphism
   - ```python
       # Polymorphism in action when a single function knows
