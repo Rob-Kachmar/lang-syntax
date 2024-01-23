@@ -89,6 +89,83 @@
       print(add_something(9))  # 10
       print(add_something('t r i n g'))  # St r i n g
 
+- Abstract Class
+  - ```python
+      import abc
+      from abc import ABC, abstractmethod
+
+      class Transaction(ABC):
+          @abstractmethod
+          def show_transaction_type(self):
+              pass
+
+          @property
+          @abstractmethod
+          def transaction_type(self):
+              pass
+
+          @property
+          @abstractmethod
+          def amount(self):
+              pass
+
+          @amount.setter
+          @abstractmethod
+          def amount(self, value):
+              pass
+
+      class ACH(Transaction):
+          def __init__(self, amount):
+              self.__amount = amount
+
+          def show_transaction_type(self):
+              print("I am an ACH")
+
+          @property
+          def transaction_type(self):
+              return 'ACH'
+
+          @property
+          def amount(self):
+              return self.__amount
+
+          @amount.setter
+          def amount(self, value):
+              self.__amount = value
+
+      class Wire(Transaction):
+          def __init__(self, amount):
+              self.__amount = amount
+
+          def show_transaction_type(self):
+              print("I am a Wire")
+
+          @property
+          def transaction_type(self):
+              return 'Wire'
+
+          @property
+          def amount(self):
+              return self.__amount
+
+          @amount.setter
+          def amount(self, value):
+              self.__amount = value
+
+
+      t = ACH(1.01)
+      print("transaction_type:", t.transaction_type)  # transaction_type: ACH
+      t.show_transaction_type()  # I am an ACH
+      print("t.amount:", t.amount)  # 1.01
+      t.amount = 2.01
+      print("t.amount:", t.amount)  # 2.01
+      t = Wire(1.02)
+      print("transaction_type:", t.transaction_type)  # transaction_type: Wire
+      t.show_transaction_type()  # I am a Wire
+      print("t.amount:", t.amount)  # 1.02
+      t.amount = 2.02
+      print("t.amount:", t.amount)  # 2.02
+
 - Polymorphism
   - ```python
       # Polymorphism in action when a single function knows
