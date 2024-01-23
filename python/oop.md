@@ -91,7 +91,6 @@
 
 - Abstract Class
   - ```python
-      import abc
       from abc import ABC, abstractmethod
 
       class Transaction(ABC):
