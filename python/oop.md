@@ -1,12 +1,15 @@
 # Python Object Oriented Concepts
 
-- Class
+- Class and Instantiation
   - ```python
       class Transaction:
-          print("This is my transaction class.")
+          text = ''
 
-      # The print statement is called when the class is instantiated
-      t1 = Transaction()  # This is my transaction class.
+      instantiated_instance1 = Transaction()
+      instantiated_instance2 = Transaction()
+      instantiated_instance1.text = 'Hello'
+      instantiated_instance2.text = 'World'
+      print(instantiated_instance1.text, instantiated_instance2.text)  # Hello World
 
 - Class Properties - getters and setters
   - ```python
