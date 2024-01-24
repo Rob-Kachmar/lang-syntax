@@ -1,5 +1,6 @@
 # Python Object Oriented Concepts
 
+## Fundamentals
 - Class and Instantiation
   - ```python
       class Transaction:
@@ -199,3 +200,197 @@
 
       lst = ["apples", "bananas", "oranges", "grapes"]
       print(len(lst))  # 4
+
+
+## SOLID Principles
+- Single Responsibility Principle (SRP)
+  - A class should do one thing and therefore it should have only a single reason to change.
+  - ```python
+      class Transaction:
+          def __init__(self, account: str, amount: float):
+              self.name = account
+              self.amount = amount
+
+          # Not following Single Responsibility, because any change to
+          # how we deposit funds will now require a change to
+          # the Transaction class.
+          def deposit_funds(self, destination_bank: str):
+              # TODO: send transaction amount to destination bank
+              pass
+
+
+      # It's better to put the depositing functionality into its own class
+      class Depositor:
+          def __init__(self, destination_bank: str):
+              self.destination_bank = destination_bank
+
+          def deposit_funds(self, transaction: Transaction):
+              print(f"Send transaction amount {transaction.amount} to {self.destination_bank}")
+
+
+      t = Transaction('12345678', 100.00)
+      dep = Depositor('Big_Bank')
+      dep.deposit_funds(t)
+      # Send transaction amount 100.0 to Big_Bank
+
+- Open/Closed Principle (OCP)
+  - Classes should be open for extension and closed to modification.
+  - ```python
+      from abc import ABC, abstractmethod
+
+
+      class Transaction:
+          def __init__(self, account: str, amount: float):
+              self.account = account
+              self.amount = amount
+
+
+      class AbstractDeposit(ABC):
+          @abstractmethod
+          def deposit_format(self):
+              pass
+
+
+      class ACHDeposit(AbstractDeposit):
+          def __init__(self, transaction: Transaction):
+              self.transaction = transaction
+
+          def deposit_format(self):
+              return f"{{ACH_deposit_format: {self.transaction.amount} | {self.transaction.account}}}"
+
+
+      class WireDeposit(AbstractDeposit):
+          def __init__(self, transaction: Transaction):
+              self.transaction = transaction
+
+          def deposit_format(self):
+              return f"{{Wire_deposit_format: {self.transaction.account} | {self.transaction.amount}}}"
+
+
+      # Depositor doesn't have to change everytime we add a new transaction type deposit format
+      class Depositor:
+          def __init__(self, destination_bank: str):
+              self.destination_bank = destination_bank
+
+          def deposit_funds(self, deposit: AbstractDeposit):
+              print(f"Send {deposit.deposit_format()} to {self.destination_bank}")
+
+
+      t = Transaction('12345678', 100.00)
+      ach_deposit = ACHDeposit(t)
+      dep = Depositor('Big_Bank')
+      dep.deposit_funds(ach_deposit)
+      # Send {ACH_deposit_format: 100.0 | 12345678} to Big_Bank
+
+- Liskov's Substitution Principle (LSP)
+  - Classes should be substitutable by instances of their subclasses.
+  - Good example from here repeated below: https://www.pythontutorial.net/python-oop/python-liskov-substitution-principle/
+  - ```python
+      from abc import ABC, abstractmethod
+
+
+      class Notification(ABC):
+          @abstractmethod
+          def notify(self, message):
+              pass
+
+
+      class Email(Notification):
+          def __init__(self, email):
+              self.email = email
+
+          def notify(self, message):
+              print(f'Send "{message}" to {self.email}')
+
+
+      class SMS(Notification):
+          def __init__(self, phone):
+              self.phone = phone
+
+          def notify(self, message):
+              print(f'Send "{message}" to {self.phone}')
+
+
+      class NotificationManager:
+          def __init__(self, notification):
+              self.notification = notification
+
+          def send(self, message):
+              self.notification.notify(message)
+
+
+      if __name__ == '__main__':
+
+          sms_notification = SMS('(408)-888-9999')
+          email_notification = Email('john@test.com')
+
+          notification_manager = NotificationManager(sms_notification)
+          notification_manager.send('Hello John')
+          # Send "Hello John" to (408)-888-9999
+
+          notification_manager.notification = email_notification
+          notification_manager.send('Hi John')
+          # Send "Hi John" to john@test.com
+
+- Interface Segregation Principle (ISP)
+  - ```python
+
+- Dependency Inversion Principle (DIP)
+  - Classes should depend upon interfaces or abstract classes instead of concrete classes and functions.
+  - Good explanation from here repeated below: https://www.pythontutorial.net/python-oop/python-liskov-substitution-principle/
+  - BAD example
+  - Violation of Dependency Inversion because the higher level class `App` is heavily dependent on the lower level concrete `FXConverterService` class.
+  - ```python
+      class FXConverterService:
+          def convert(self, from_currency, to_currency, amount):
+              print(f'{amount} {from_currency} = {amount * 1.2} {to_currency}')
+              return amount * 1.2
+
+
+      class App:
+          def start(self):
+              converter = FXConverterService()
+              converter.convert('EUR', 'USD', 100)
+
+
+      if __name__ == '__main__':
+          app = App()
+          app.start()
+
+  - GOOD example
+  - Now the higher level `App` class uses the `CurrencyConverter` abstract class, which allows us to easily switch out the `FXConverterServce` concrete class with an alternative `AlphaConverterService` concrete class.
+  - ```python
+      from abc import ABC
+
+
+      class CurrencyConverter(ABC):
+          def convert(self, from_currency, to_currency, amount) -> float:
+              pass
+
+
+      class FXConverterService(CurrencyConverter):
+          def convert(self, from_currency, to_currency, amount) -> float:
+              print('Converting currency using FX API')
+              print(f'{amount} {from_currency} = {amount * 1.2} {to_currency}')
+              return amount * 1.2
+
+
+      class AlphaConverterService(CurrencyConverter):
+          def convert(self, from_currency, to_currency, amount) -> float:
+              print('Converting currency using Alpha API')
+              print(f'{amount} {from_currency} = {amount * 1.15} {to_currency}')
+              return amount * 1.15
+
+
+      class App:
+          def __init__(self, converter: CurrencyConverter):
+              self.converter = converter
+
+          def start(self):
+              self.converter.convert('EUR', 'USD', 100)
+
+
+      if __name__ == '__main__':
+          converter = AlphaConverterService()
+          app = App(converter)
+          app.start()

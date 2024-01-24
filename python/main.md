@@ -327,6 +327,19 @@
       # ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 
 
+## Time
+- Convert minutes into an integer of time
+  - NOTE: Assuming minutes are under the total 1440 in a day
+  - ```python
+      total_minutes = 1240
+      t = total_minutes // 60 * 100 + total_minutes % 60
+      print(t)  # 2040
+
+      h, m = divmod(total_minutes, 60)
+      t2 = h * 100 + m
+      print(t2)  # 2040
+
+
 ## If Statments
 - Basic if statement
   - ```python
@@ -616,12 +629,36 @@
       # lst as a list: ['a', 'a', 'b', 'b', 'b', 'c', 'd', 'd', 'e', 'f']
       # lst as a set: {'f', 'c', 'b', 'e', 'a', 'd'}
 
+- `Sets` and `Lists` unions together
+  - ```python
+      set1 = {1, 3, 5, 7, 9}
+      set2 = {1, 2, 3, 5, 8}
+      sets_union = set1 | set2
+      print(sets_union)  # {1, 2, 3, 5, 7, 8, 9}
+
+      set1 = {1, 3, 5, 7, 9}
+      lst1 = [1, 2, 3, 5, 8]
+      # set_union_with_list = set1 | lst1  # TypeError: unsupported operand type(s) for |: 'set' and 'list'
+      set_union_with_list = set1.union(lst1)
+      print(set_union_with_list)  # {1, 2, 3, 5, 7, 8, 9}
+
+- `Sets` and `Lists` intersecting
+  - ```python
+      set1 = {1, 3, 5, 7, 9}
+      set2 = {1, 2, 3, 5, 8}
+      sets_interseting = set1 & set2
+      print(sets_interseting)  # {1, 3, 5}
+
+      set1 = {1, 3, 5, 7, 9}
+      lst1 = [1, 2, 3, 5, 8]
+      # set_interseting_list = set1 & lst1  # TypeError: unsupported operand type(s) for &: 'set' and 'list'
+      set_interseting_list = set1.intersection(lst1)
+      print(set_interseting_list)  # {1, 3, 5}
+
 - Sum a `list`
   - ```python
       lst = [1, 2, 3, 4, 5]
-      print(sum(lst))
-
-      # 15
+      print(sum(lst))  # 15
 
 - Aggregate a `list` by element value and their counts into a `dict` (dictionary / hash table) of the results.
     - ```python
@@ -724,6 +761,18 @@
       # Delete key 5 from the dictionary:
       #     {1: 2, 3: 444, '7': 8, 9: '10', 2: 3}
 
+- Use map to convert a string of numbers into a list of integers
+  - ```python
+      s = '123456789'
+      m = map(int, str(s))
+      # after iterating over it, it becomes empty
+      print([i for i in m])  # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+      # now this returns 0 because it is empty
+      print(sum(m))
+
+      m = map(int, str(s))
+      # if we map it again, then we can get the sum()
+      print(sum(m))
 
 ## Loopping
 - Basic for loop through a list
@@ -1338,6 +1387,8 @@
 
 
 # Useful Sites
+- [Python Tutorial](https://www.pythontutorial.net/)
+  - Excellent resource with clear, easy to understand examples
 - [NumPy](https://numpy.org/doc/stable/index.html)
   - Everything you need to know about NumPy. Although, not always the best when it comes to tutorials and examples
 - [Sharp Sight](https://www.sharpsightlabs.com/)
