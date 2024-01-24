@@ -284,7 +284,7 @@
 
 - Liskov's Substitution Principle (LSP)
   - Classes should be substitutable by instances of their subclasses.
-  - Good example from here repeated below: https://www.pythontutorial.net/python-oop/python-liskov-substitution-principle/
+  - Good example from here, repeated below: https://www.pythontutorial.net/python-oop/python-liskov-substitution-principle/
   - ```python
       from abc import ABC, abstractmethod
 
@@ -333,11 +333,79 @@
           # Send "Hi John" to john@test.com
 
 - Interface Segregation Principle (ISP)
+  - Many client-specific interfaces are better than one general-purpose interface.
+  - Good explanation from here, repeated below: https://dev.to/revisto/solid-design-principles-learn-the-interface-segregation-principle-j8c
+  - BAD example
+  - The `Printer` class is trying to be all things for all printers, but there are old printers that can't use all the functionality it is requiring.
   - ```python
+      from abc import ABC, abstractmethod
+
+
+      class Printer(ABC):
+          @abstractmethod
+          def print(self, document):
+              pass
+
+          @abstractmethod
+          def fax(self, document):
+              pass
+
+          @abstractmethod
+          def scan(self, document):
+              pass
+
+
+      class OldPrinter(Printer):
+          def print(self, document):
+              print(f"Printing {document} in black and white...")
+
+          def fax(self, document):
+              raise NotImplementedError("Fax functionality not supported")
+
+          def scan(self, document):
+              raise NotImplementedError("Scan functionality not supported")
+
+  - GOOD example
+  - ```python
+      from abc import ABC, abstractmethod
+
+
+      class Printer(ABC):
+          @abstractmethod
+          def print(self, document):
+              pass
+
+
+      class Fax(ABC):
+          @abstractmethod
+          def fax(self, document):
+              pass
+
+
+      class Scanner(ABC):
+          @abstractmethod
+          def scan(self, document):
+              pass
+
+
+      class OldPrinter(Printer):
+          def print(self, document):
+              print(f"Printing {document} in black and white...")
+
+
+      class NewPrinter(Printer, Fax, Scanner):
+          def print(self, document):
+              print(f"Printing {document} in color...")
+
+          def fax(self, document):
+              print(f"Faxing {document}...")
+
+          def scan(self, document):
+              print(f"Scanning {document}...")
 
 - Dependency Inversion Principle (DIP)
   - Classes should depend upon interfaces or abstract classes instead of concrete classes and functions.
-  - Good explanation from here repeated below: https://www.pythontutorial.net/python-oop/python-liskov-substitution-principle/
+  - Good explanation from here, repeated below: https://www.pythontutorial.net/python-oop/python-liskov-substitution-principle/
   - BAD example
   - Violation of Dependency Inversion because the higher level class `App` is heavily dependent on the lower level concrete `FXConverterService` class.
   - ```python
