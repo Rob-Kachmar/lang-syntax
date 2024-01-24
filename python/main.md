@@ -389,9 +389,34 @@
           case _:
               result = "Congratulations, you've reached the end of the internet."
 
-      print(result)
+      print(result)  # Congratulations, you've reached the end of the internet.
 
-      # Congratulations, you've reached the end of the internet.
+      val = 'e'
+      result = ""
+      match val:
+          case 'a' | 'b' | 'c':
+              result = "abc"
+          case 'd' | 'e' | 'f':
+              result = "def"
+          case _:
+              result = "Some letter greater than 'f'."
+
+      print(result)  # def
+
+      val = 'c'
+      lst1 = ['a', 'b', 'c']
+      lst2 = ['d', 'e', 'f']
+      result = ""
+      match val:
+          case w if w in lst1:
+              result = "abc"
+          case w if w in lst2:
+              result = "def"
+          case _:
+              result = "Some letter greater than 'f'."
+
+      print(result)  # abc
+
 
 ## Lists, Sets, and Dictionaries
 - Get the length of a `list`
