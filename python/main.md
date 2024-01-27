@@ -540,6 +540,50 @@
       print(lst)
       # [9, 8, 7, 6, 5, 4, 3, 2, 1]
 
+- Sorting a dictionary by value
+  - ```python
+      d = {"acct1": 1, "acct2": 2, "acct3": 0, "acct4": 5, "acct5": 0}
+      ds = {k: v for k, v in sorted(d.items(), key=lambda i: i[1])}
+      print(d)   # {'acct1': 1, 'acct2': 2, 'acct3': 0, 'acct4': 5, 'acct5': 0}
+      print(ds)  # {'acct3': 0, 'acct5': 0, 'acct1': 1, 'acct2': 2, 'acct4': 5}
+
+      for k, v in ds.items():
+          print(k, v)
+      # acct3 0
+      # acct5 0
+      # acct1 1
+      # acct2 2
+      # acct4 5
+
+- Sorting objects in a list by their attributes
+  - [Sorting in Python](https://wiki.python.org/moin/HowTo/Sorting#Sortingbykeys)
+  - ```python
+      from operator import attrgetter
+
+
+      class Person:
+          def __init__(self, name: str, age: int, rank=0):
+              self.name = name
+              self.age = age
+              self.rank = rank
+
+          def __repr__(self):
+              return f"Person({self.name}, {self.age}, {self.rank})"
+
+
+      p = [Person('person1', 10, 1), Person('person2', 25, 2),
+          Person('person3', 13, 0), Person('person4', 21, 5),
+          Person('person5', 45, 0)]
+
+      # We want to sort by rank first in descending order and then by name in ascending order if the ranks match
+      print('BEFORE sort:', p)
+      ps = [item for item in sorted(p, key=attrgetter('name'))]  # First sort by the secondary sort key
+      ps = [item for item in sorted(ps, key=attrgetter('rank'), reverse=True)]  # Then sort by the primary sort key
+      print('AFTER sort:', ps)
+
+      BEFORE sort: [Person(person1, 10, 1), Person(person2, 25, 2), Person(person3, 13, 0), Person(person4, 21, 5), Person(person5, 45, 0)]
+      AFTER sort: [Person(person4, 21, 5), Person(person2, 25, 2), Person(person1, 10, 1), Person(person3, 13, 0), Person(person5, 45, 0)]
+
 - Copying vs Referencing a List
   - ```python
       original = [1, 2, 3, 4, 5]
@@ -798,6 +842,104 @@
       m = map(int, str(s))
       # if we map it again, then we can get the sum()
       print(sum(m))
+
+
+## Heaps
+- Creating a heap with the smallest element at the start
+- NOTE: Heaps are not thread-safe.
+  - ```python
+      import heapq
+
+      lst = [3, 7, 9, 4, 2, 1, 6]
+      print(lst)  # [3, 7, 9, 4, 2, 1, 6]
+      heapq.heapify(lst)
+      # Now the smallest element is at the beginning
+      print(lst)  # [1, 2, 3, 4, 7, 9, 6]
+
+- Adding to a heap
+  - If you're adding an element that will be the smallest, then it goes to the front, otherwise it's added wherever.
+  - ```python
+      import heapq
+
+      lst = [3, 7, 9, 4, 2, 1, 6]
+      print(lst)  # [3, 7, 9, 4, 2, 1, 6]
+      heapq.heapify(lst)
+      print(lst)  # [1, 2, 3, 4, 7, 9, 6]
+      heapq.heappush(lst, 2)
+      print(lst)  # [1, 2, 3, 2, 7, 9, 6, 4]
+      heapq.heappush(lst, 5)
+      print(lst)  # [1, 2, 3, 2, 7, 9, 6, 4, 5]
+      heapq.heappush(lst, 0)
+      print(lst)  # [0, 1, 3, 2, 2, 9, 6, 4, 5, 7]
+      heapq.heappush(lst, -5)
+      print(lst)  # [-5, 0, 3, 2, 1, 9, 6, 4, 5, 7, 2]
+
+- Removing from a heap
+  - The function `heapq.heappop()` will remove the smallest element and then readjust to get the next smallest element to the front of the heap.
+  - ```python
+      import heapq
+
+      lst = [3, 7, 9, 4, 2, 1, 6]
+      print(lst)  # [3, 7, 9, 4, 2, 1, 6]
+      heapq.heapify(lst)
+      print(lst)  # [1, 2, 3, 4, 7, 9, 6]
+      heapq.heappop(lst)
+      print(lst)  # [2, 4, 3, 6, 7, 9]
+
+- Get n smallest or largest items from the heap
+  - ```python
+      import heapq
+
+      lst = [3, 7, 9, 4, 2, 1, 6]
+      print(lst)  # [3, 7, 9, 4, 2, 1, 6]
+      heapq.heapify(lst)
+      print(lst)  # [1, 2, 3, 4, 7, 9, 6]
+      print(heapq.nsmallest(3, lst))  # [1, 2, 3]
+      print(heapq.nlargest(3, lst))  # [9, 7, 6]
+
+
+## Deque
+- Aka Doubly Ended Queue, which is more efficient when appending and popping items from both ends of a list, using time complexity 0(1) vs a list which has a time complexity of 0(n).
+  - ```python
+      from collections import deque
+
+      # Create a queue
+      queue = deque([3, 7, 5, 9, 4, 9, 2, 1, 6])
+      print(queue)  # deque([3, 7, 5, 9, 4, 9, 2, 1, 6])
+
+      # Add to the end of the queue
+      queue.append(5)
+      print(queue)  # deque([3, 7, 5, 9, 4, 9, 2, 1, 6, 5])
+      queue.extend([7, 8, 9])
+      print(queue)  # deque([3, 7, 5, 9, 4, 9, 2, 1, 6, 5, 7, 8, 9])
+
+      # Add to the start of the queue
+      queue.appendleft(8)
+      print(queue)  # deque([8, 3, 7, 5, 9, 4, 9, 2, 1, 6, 5, 7, 8, 9])
+      queue.extendleft([1, 2, 3])
+      print(queue)  # deque([3, 2, 1, 8, 3, 7, 5, 9, 4, 9, 2, 1, 6, 5, 7, 8, 9])
+
+      # Remove from the end of the queue
+      queue.pop()
+      print(queue)  # deque([3, 2, 1, 8, 3, 7, 5, 9, 4, 9, 2, 1, 6, 5, 7, 8])
+
+      # Remove from the start of the queue
+      queue.popleft()
+      print(queue)  # deque([2, 1, 8, 3, 7, 5, 9, 4, 9, 2, 1, 6, 5, 7, 8])
+
+      # Count the occurrences of a certain element
+      print(queue.count(9))  # 2
+
+      # Get the index of the first occurrence of a certain element
+      print(queue.index(9))  # 6
+      # Get the index of the first occurrence of a certain element after a certain start
+      print(queue.index(9, 6))  # 6
+      print(queue.index(9, 7))  # 8
+
+      # Remove the first occurrence of a certain element
+      queue.remove(9)
+      print(queue)  # deque([2, 1, 8, 3, 7, 5, 4, 9, 2, 1, 6, 5, 7, 8])
+
 
 ## Loopping
 - Basic for loop through a list
