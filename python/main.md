@@ -318,13 +318,20 @@
 
       # 01
 
-- String to List
+- String to  `list`
   - ```python
       s = "abcdefg"
       string_lst = list(s)
       print(string_lst)
 
       # ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+
+- Sort a string into a `list`
+  - ```python
+      s = "anagram"
+      print(sorted(s))  # ['a', 'a', 'a', 'g', 'm', 'n', 'r']
+      t = "nagaram"
+      print(sorted(t))  # ['a', 'a', 'a', 'g', 'm', 'n', 'r']
 
 
 ## Time
