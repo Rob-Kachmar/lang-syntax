@@ -175,6 +175,36 @@
       # Modulo of count, again by 3: 2
       # Modulo of count by 1: 0
 
+- Comparison evaluations against multiple values
+  - ```python
+      x = 5
+      # Evaluate if a variable is less than multiple values
+      result = x < min(6, 7, 8)
+      print(result)  # True
+
+      # Evaluate if a variable is greater than multiple values
+      result = x > max(2, 3, 4)
+      print(result)  # True
+
+      # Evaluate if a variable is contained in multiple values
+      result = x in {4, 5, 6}
+      print(result)  # True
+
+
+## Binary
+- Convert to and from binary
+  - ```python
+      n = 35
+
+      b = bin(n)[2:]
+      print(b)  # 100011
+
+      print(b.zfill(8))  # 00100011
+
+      print(f'{n:08b}')  # 00100011
+
+      print(int(b, 2))  # 35
+
 
 ## Strings
 - Concatenating strings
