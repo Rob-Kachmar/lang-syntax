@@ -49,6 +49,37 @@
       # v: None | result of '(v is None)': True
       # v: None | result of 'not (v is None)': False
 
+- Check the type
+  - ```python
+      n = 13
+      print(f"n: {n} is{'' if type(n) is int else ' not'} an int")
+      n = 13.12
+      print(f"n: {n} is{'' if type(n) is int else ' not'} an int")
+
+      n = 13
+      print(f"n: {n} is{'' if type(n) is float else ' not'} a float")
+      n = 13.12
+      print(f"n: {n} is{'' if type(n) is float else ' not'} a float")
+
+      print(bin(13))  # 0b1101
+      n = 0b1101  # binary representation of 13
+      print(n, 'is of type:', type(n))  # 13 is of type: <class 'int'>
+      n = 3.14
+      print(n, 'is of type:', type(n))  # 3.14 is of type: <class 'float'>
+      n = '3.14'
+      print(n, 'is of type:', type(n))  # 3.14 is of type: <class 'str'>
+      n = [1, 2, 3, 3]
+      print(n, 'is of type:', type(n))  # [1, 2, 3, 3] is of type: <class 'list'>
+      n = (1, 2, 3, 3)
+      print(n, 'is of type:', type(n))  # (1, 2, 3, 3) is of type: <class 'tuple'>
+      n = {1, 2, 3, 3}
+      print(n, 'is of type:', type(n))  # {1, 2, 3} is of type: <class 'set'>
+      # NOTE: duplicate value automatically removed
+      n = {"a": 1, "b": 2, "c": 3, "c": 4}
+      print(n, 'is of type:', type(n))  # {'a': 1, 'b': 2, 'c': 3} is of type: <class 'dict'>
+      # NOTE: duplicate key automatically removed by overriding the previous instance
+
+
 - Check if a string is a digit
   - ```python
       n = '1'
